@@ -1,0 +1,148 @@
+# Financial Advisor Configuration
+
+# Data Sources
+# Dodać API Key dla reszty stron
+data_sources:
+  - name: "Yahoo Finance"
+    url: "https://finance.yahoo.com"
+  - name: "Alpha Vantage"
+    api_key: "H2KHATR5TYABRRU9"
+  - name: "Financial Modeling Prep"
+    url: "https://financialmodelingprep.com/api/v3"
+    api_key: "Q4EaUfe7lVSAxHF1T4bEzW6VzQGcN6O7"
+  - name: "SEC EDGAR"
+    url: "https://www.sec.gov/edgar/searchedgar/companysearch.html"
+  - name: "BiznesRadar"
+    url: "https://www.biznesradar.pl/"
+  - name: "Bankier"
+    url: "https://www.bankier.pl/"
+  - name: "Puls Biznesu"
+    url: "https://www.pb.pl/"
+  - name: "Stooq"
+    url: "https://stooq.pl/"
+
+# Financial Metrics
+financial_metrics:
+  - name: "P/E Ratio"
+    description: "Compares the stock price to the company’s earnings per share (EPS). A higher P/E may indicate overvaluation, and a lower P/E may signal undervaluation."
+    threshold: 20
+  - name: "EPS"
+    description: "The portion of a company's profit allocated to each outstanding share. Rising EPS suggests growing profits."
+    threshold: 5
+  - name: "P/B Ratio"
+    description: "Compares stock price with the company’s book value. A lower P/B ratio indicates the stock may be undervalued."
+    threshold: 3
+  - name: "Dividend Yield"
+    description: "The dividend paid relative to the stock price. High yield attracts income-focused investors."
+    threshold: 2
+  - name: "Debt-to-Equity Ratio (D/E)"
+    description: "The company’s total debt divided by its equity. Higher ratios indicate more leverage and financial risk."
+    threshold: 1.5
+  - name: "ROE"
+    description: "Net income as a percentage of shareholders' equity. Higher ROE suggests efficient use of equity."
+    threshold: 15
+  - name: "Free Cash Flow (FCF)"
+    description: "Cash generated after capital expenditures. Strong FCF indicates potential for growth or debt repayment."
+    threshold: 5
+  - name: "Current Ratio"
+    description: "Ability to cover short-term liabilities. Ratios above 1 indicate good liquidity."
+    threshold: 1.5
+  - name: "Net Profit Margin"
+    description: "Percentage of revenue left after expenses. Higher margins suggest effective cost management."
+    threshold: 10
+  - name: "Price-to-Sales Ratio (P/S)"
+    description: "Compares stock price to sales per share. A lower P/S ratio can signal undervaluation relative to sales."
+    threshold: 3
+
+# LLM Configuration
+
+#llm:
+ # model: "llama-3.1"
+  #api_key: "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"
+  #max_tokens: 1000
+  #temperature: 0.7
+  #context_window: 8192
+  #fine_tuning:
+   # dataset: "financial_reports_2023"
+    #epochs: 3
+llm:
+  model: 'facebook/opt-350m'  # Use a valid model identifier
+  max_length: 100
+  temperature: 0.7
+
+# Data Storage
+data_storage:
+  type: "cloud"
+  provider: "AWS"
+  bucket: "financial-advisor-data"
+  region: "us-west-2"
+  encryption: true
+  retention_period: "1y"
+
+# Logging
+logging:
+  level: "INFO"
+  file: "logs/financial_advisor.log"
+
+# Web Scraping
+web_scraping:
+  user_agent: "FinancialAdvisor/2.0"
+  request_delay: 1  # in seconds
+
+# Analysis Settings
+analysis:
+  time_period: "2y"
+  update_frequency: "daily"
+  risk_profiles:
+    - name: "Conservative"
+      max_pe_ratio: 15
+      min_dividend_yield: 3
+    - name: "Moderate"
+      max_pe_ratio: 20
+      min_dividend_yield: 2
+    - name: "Aggressive"
+      max_pe_ratio: 30
+      min_dividend_yield: 1
+
+# API Configuration
+api:
+  version: "v1"
+  rate_limit: 100  # requests per minute
+  endpoints:
+    - "/analyze"
+    - "/portfolio"
+    - "/news"
+
+# Notification System
+notifications:
+  email:
+    smtp_server: "smtp.gmail.com"
+    port: 587
+    username: "your_email@gmail.com"
+  sms:
+    provider: "Twilio"
+    account_sid: "YOUR_TWILIO_ACCOUNT_SID"
+    auth_token: "YOUR_TWILIO_AUTH_TOKEN"
+
+# Machine Learning Models
+ml_models:
+  - name: "Stock Price Predictor"
+    type: "LSTM"
+    input_features: ["Open", "Close", "Volume", "SMA_50", "RSI"]
+    output: "Next_Day_Close"
+  - name: "Sentiment Analyzer"
+    type: "BERT"
+    fine_tuned_on: "financial_news_2023"
+
+# Backtesting
+backtesting:
+  start_date: "2020-01-01"
+  end_date: "2023-12-31"
+  initial_capital: 100000
+  transaction_fee: 0.001
+
+# Compliance
+compliance:
+  disclaimer: "This tool provides analysis for informational purposes only. It does not constitute financial advice."
+  data_retention_policy: "User data is retained for 5 years in compliance with financial regulations."
+  privacy_policy_url: "https://your-website.com/privacy-policy"
